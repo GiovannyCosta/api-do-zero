@@ -1,0 +1,16 @@
+# ── Sistema ──
+.DS_Store
+Thumbs.db
+*.log
+*.env
+.env.*
+
+# ── Dev ──
+node_modules/
+.vscode/
+*.tmp
+
+
+
+# ── Cola ──
+list.js
