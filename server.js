@@ -1,5 +1,8 @@
 import express from "express";
+import "dotenv/config";
+import { PrismaClient } from "@prisma/client";
 
+const prisma = new PrismaClient();
 const app = express();
 
 /**
@@ -15,13 +18,21 @@ const users = [];
  * ROTA POST /user
  * Finalidade: Criar um novo usuário.
  */
-app.post("/user", (req, res) => {
+app.post("/user", async (req, res) => {
   // Exibe no terminal os dados enviados pelo Thunder Client/Postman
   console.log(req.body);
 
   // Adiciona os dados recebidos no array 'users'
   users.push(req.body);
 
+  // USANDO PRISMA E MONGODB
+  await prisma.user.create({
+    data: {
+      email: req.body.email,
+      name: req.body.name,
+      age: req.body.age,
+    },
+  });
   /**
    * res.status(201): Define o código HTTP "Created" (Sucesso na criação).
    * .json(): Envia os dados de volta para o cliente no formato JSON.
